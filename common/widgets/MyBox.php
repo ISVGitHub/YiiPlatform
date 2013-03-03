@@ -50,8 +50,8 @@ class MyBox extends CWidget
     public function init()
     {
         // этот метод будет вызван внутри CBaseController::beginWidget()
-        $this->renderRow();
-
+        $this->publicationAssets();
+        $this->render('mybox');
     }
 
     /**
@@ -63,6 +63,13 @@ class MyBox extends CWidget
             'onChange' => 'js:function($el, status, e){console.log($el, status, e);}',
             'name' => 'TestToggleButton',
         ));
+    }
+
+    public function activationButton()
+    {
+        $this->widget('bootstrap.widgets.TbButton',
+            array('label'=>'activation', 'size'=>'mini', 'type'=>'info',
+            'htmlOptions'=>array('class'=>'pull-right')));
     }
 
     public function run()
@@ -117,7 +124,7 @@ class MyBox extends CWidget
 
     public function renderBox()
     {
-        echo CHtml::openTag('div', array('id'=>'box-'.$this->id, 'class'=>'box'));
+        echo CHtml::openTag('div', array('id'=>'box-0', 'class'=>'box'));
         // insert second tag
         $this->renderBoxHeader();
         echo CHtml::closeTag('div');
@@ -130,7 +137,6 @@ class MyBox extends CWidget
         // insert secong tag
         $this->renderThreeIconButtons();
         echo CHtml::closeTag('div');
-        $this->box_container_toggle();
     }
 
     public function renderIconButtonClose()
@@ -164,35 +170,20 @@ class MyBox extends CWidget
        $this->renderIconConfigButton();
     }
 
-    public function box_container_toggle()
+    public function publicationAssets()
     {
-        echo CHtml::openTag('div', array('class'=>'box-container-toggle'));
-        //enter second tag
-        echo $this->box_content();
-        echo CHtml::closeTag('div');
-    }
-
-    public function box_content()
-    {
-        echo CHtml::openTag('div', array('class'=>'box-content'));
-        // enter second tag
-        $this->h2_and_MainBoxContent();
-        echo CHtml::closeTag('div');
-    }
-
-    public function h2_and_MainBoxContent()
-    {
-        echo CHtml::openTag('h2');
-        echo $this->titleHeaderContent;
-        echo CHtml::closeTag('h2');
-        echo $this->renderMainBoxContent();
-    }
-
-    public function renderMainBoxContent()
-    {
-       echo CHtml::openTag('p');
-       echo $this->mainBoxContent;
-       echo CHtml::closeTag('p');
+        $url = CHtml::asset(
+            Yii::getPathOfAlias('common.widgets')
+        );
+        Yii::app()->clientScript->registerCssFile(
+            $url.'/css/default.css'
+        );
+        Yii::app()->clientScript->registerCssFile(
+            $url.'/css/simple.css'
+        );
+        Yii::app()->clientScript->registerScriptFile(
+            $url.'/js/gtm.js'
+        );
     }
 
 }
