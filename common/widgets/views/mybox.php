@@ -7,9 +7,8 @@
 
                 <?php $this->activationButton(); ?>
 
-                <div class="three-button">
                 <?php $this->renderThreeIconButtons(); ?>
-                </div>
+
             </h4>
             <div class="box-container-toggle">
                 <div class="box-content">
