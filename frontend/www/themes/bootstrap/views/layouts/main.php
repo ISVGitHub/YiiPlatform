@@ -56,15 +56,15 @@
             ),
         ),
 
-        (!Yii::app()->user->isGuest) ?
-
-            '<p class="navbar-text pull-right">'
-
-            .Yii::app()->getModule('user')->user()->profile->firstname.
-            ' '
-            .Yii::app()->getModule('user')->user()->profile->lastname.
-
-            '</p>' : '',
+//        (!Yii::app()->user->isGuest) ?
+//
+//            '<p class="navbar-text pull-right">'
+//
+//            .Yii::app()->getModule('user')->user()->profile->firstname.
+//            ' '
+//            .Yii::app()->getModule('user')->user()->profile->lastname.
+//
+//            '</p>' : '',
 
         array(
             'class' => 'bootstrap.widgets.TbMenu',
@@ -72,7 +72,13 @@
             'items' => array(
                 array('label' => 'Test', 'url' => array('/test'), 'visible'=>Yii::app()->getModule('user')->isAdmin()),
                 '---',
-                array('label' => 'Links', 'url' => '#', 'items' => array(
+                array('label' =>
+
+                Yii::app()->getModule('user')->user()->profile->firstname.
+                ' '.
+                Yii::app()->getModule('user')->user()->profile->lastname,
+
+                    'url' => '#', 'items' => array(
                     array('label' => 'List Users', 'url' => array('/user'), 'visible'=>Yii::app()->getModule('user')->isAdmin()),
                     array('label' => 'Old Login', 'url' => array('/site/login')),
                     array('label' => 'Something else here', 'url' => '#'),
