@@ -55,17 +55,7 @@
                 array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
             ),
         ),
-
-//        (!Yii::app()->user->isGuest) ?
-//
-//            '<p class="navbar-text pull-right">'
-//
-//            .Yii::app()->getModule('user')->user()->profile->firstname.
-//            ' '
-//            .Yii::app()->getModule('user')->user()->profile->lastname.
-//
-//            '</p>' : '',
-
+        (!Yii::app()->user->isGuest) ?
         array(
             'class' => 'bootstrap.widgets.TbMenu',
             'htmlOptions' => array('class' => 'pull-right'),
@@ -73,10 +63,11 @@
                 array('label' => 'Test', 'url' => array('/test'), 'visible'=>Yii::app()->getModule('user')->isAdmin()),
                 '---',
                 array('label' =>
-
+                (!Yii::app()->user->isGuest) ?
                 Yii::app()->getModule('user')->user()->profile->firstname.
                 ' '.
-                Yii::app()->getModule('user')->user()->profile->lastname,
+                Yii::app()->getModule('user')->user()->profile->lastname
+                :'Username',
 
                     'url' => '#', 'items' => array(
                     array('label' => 'List Users', 'url' => array('/user'), 'visible'=>Yii::app()->getModule('user')->isAdmin()),
@@ -86,7 +77,8 @@
                     array('label' => 'Separated link', 'url' => '#'),
                 )),
             ),
-        ),
+        )
+        :'',
     ),
 )); ?>
 
